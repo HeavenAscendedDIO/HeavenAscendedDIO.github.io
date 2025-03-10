@@ -10,7 +10,7 @@
     }
     td {
       border: 1px solid #ddd;
-      padding: 15px;
+      padding: 5px;
       text-align: center;
     }
   </style>
@@ -32,6 +32,7 @@
       for (let j = 0; j < 100; j++) 
       {
         const cell = document.createElement("td");
+        cell.textContent = `(${i + 1}, ${j + 1})`;
 
         const red = (i * 2) % 256;
         const green = (j * 2) % 256;
