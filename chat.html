@@ -3,11 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Супер крутой чат</title>
-    <link rel="stylesheet" href="style_for_chat.css">
+    <title>Супер крутой сайт</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 </head>
 <body>
     <div class="chatbox" id="chatbox"></div>
+
+    <table id="messagesTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Время</th>
+                <th>Имя</th>
+                <th>Сообщение</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 
     <script>
         const names = ["Алексей", "Мария", "Иван", "Ольга", "Дмитрий", "Анна", "Сергей", "Екатерина", "Павел", "Наталья"];
@@ -34,19 +51,33 @@
             return array[Math.floor(Math.random() * array.length)];
         }
 
-        function addMessage() {
-            const chatbox = document.getElementById('chatbox');
-            const messageElement = document.createElement('p');
-            messageElement.className = 'chat_text';
-            messageElement.textContent = `${getRandomTime()} ${getRandomElement(names)}: ${getRandomElement(messages)}`;
-            chatbox.appendChild(messageElement);
+        function addMessageToTable() {
+            const time = getRandomTime();
+            const name = getRandomElement(names);
+            const message = getRandomElement(messages);
+
+            $('#messagesTable').DataTable().row.add([
+                time,
+                name,
+                message
+            ]).draw(false);
         }
 
-        for (let i = 0; i < 10; i++) {
-            addMessage();
-        }
+        $(document).ready(function() {
+            $('#messagesTable').DataTable({
+                "paging": true,
+                "pageLength": 5,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false
+            });
 
+            for (let i = 0; i < 10; i++) {
+                addMessageToTable();
+            }
+        });
     </script>
-
-</body> 
+</body>
 </html>
