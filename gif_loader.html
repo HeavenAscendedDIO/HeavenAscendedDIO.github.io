@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #loader {
+            width: 100px;
+            height: 100px;
+            margin: 20px auto;
+            display: none;
+        }
+        .hidden { 
+            opacity: 0;
+            display: none;
+        }
+        .shown {
+            opacity: 1;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>hello</h1>
+    <input id="fromInput" type="text" placeholder="введите имя">
+    <input id="messageInput" type="text" placeholder="введите сообщение">
+    <button onclick="sendMsg();">send message</button>
+  
+
+    <div id="resultDiv1"></div>
+    <hr>
+   
+    <div id="messages"></div>
+    <img id="loader" class="hidden" src="https://i.gifer.com/origin/b4/b4d657e7ef262b88eb5f7ac021edda87.gif" alt="Loading...">
+
+    <script>
+        setInterval( function() {
+            fetch("messages.txt").then(function(response) { 
+                return response.text();
+            }).then(function(otvet) { 
+                if(otvet=='') { 
+                    console.log("пусто"); 
+                    return; //закончить скрипт
+                }
+                const messages_array = otvet.split('\n');
+                messages.innerHTML='';
+                
+                messages_array.forEach(function(msg){
+                    msg_parts = msg.split(":::");
+                    console.log(msg_parts);
+
+                    messages.innerHTML+='От '+msg_parts[0]+":"+msg_parts[1]+'------'+msg_parts[2]+"<br>";
+                });
+            });
+        },1000);
+
+        async function sendMsg() {
+            loader.classList.add("shown");
+            var responseResult = await fetch('sendmsg.php?message='+fromInput.value+':::'+messageInput.value+':::'+Date());
+            loader.classList.remove("shown");
+        }
+    </script>
+</body>
+</html>
