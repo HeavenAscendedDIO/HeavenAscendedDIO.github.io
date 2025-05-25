@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'structure.dart';
+import 'websocket.dart';
 
 void main() {
   runApp(const MyApp());
@@ -66,14 +67,28 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () {
               Navigator.push(
                 context,
+                MaterialPageRoute(builder: (context) => WebSocketDemo()),
+              );
+            },
+            heroTag: 'websocket',
+            tooltip: 'Open WebSocket',
+            child: const Icon(Icons.wifi),
+          ),
+          const SizedBox(height: 16),
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
                 MaterialPageRoute(builder: (context) => const Structure()),
               );
             },
+            heroTag: 'structure',
             child: const Icon(Icons.account_tree),
           ),
           const SizedBox(height: 16),
           FloatingActionButton(
             onPressed: _incrementCounter,
+            heroTag: 'increment',
             tooltip: 'Increment',
             backgroundColor: _isRed ? Colors.red : Colors.green,
             child: const Icon(Icons.add),
