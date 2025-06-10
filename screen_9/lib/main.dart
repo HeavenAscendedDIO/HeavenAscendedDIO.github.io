@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -70,22 +71,22 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  const Text(
+                  Text(
                     'Fitly',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: GoogleFonts.nunito(
                       fontSize: 64,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 24),
-                  const Text(
+                  Text(
                     'Before we dive in, what’s the\nname we’ll be cheering for?',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 26,
-                      color: Colors.grey,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
+                      color: Colors.grey,
                       height: 1.4,
                     ),
                   ),
